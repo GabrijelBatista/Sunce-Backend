@@ -37,6 +37,15 @@ class ProductController extends Controller
         return response()->json($product_materials);
     }
 
+    public function AutocompleteProducts(Request $request): JsonResponse
+    {
+        $products = Product::where([['user_id', Auth::id()], ['name', 'LIKE', '%' . $request->term . '%']])
+            ->limit(10)
+            ->get();
+
+        return response()->json($products);
+    }
+
     public function AddProduct(AddProductRequest $request): JsonResponse
     {
         $materials_to_array = [];

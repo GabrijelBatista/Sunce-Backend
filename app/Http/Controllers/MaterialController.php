@@ -36,6 +36,15 @@ class MaterialController extends Controller
         return response()->json($products);
     }
 
+    public function AutocompleteMaterials(Request $request): JsonResponse
+    {
+        $materials = Material::where([['user_id', Auth::id()], ['name', 'LIKE', '%' . $request->term . '%']])
+            ->limit(10)
+            ->get();
+
+        return response()->json($materials);
+    }
+
     public function AddMaterial(AddMaterialRequest $request): JsonResponse
     {
         $material = Material::create([

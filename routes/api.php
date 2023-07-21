@@ -47,6 +47,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::prefix('material')->controller(MaterialController::class)->group(function () {
         Route::get('get', 'GetMaterials');
+        Route::get('autocomplete', 'AutocompleteMaterials');
         Route::get('{id}/get-products', 'GetMaterialProducts');
         Route::post('add', 'AddMaterial');
         Route::put('edit', 'EditMaterial');
@@ -55,6 +56,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::prefix('product')->controller(ProductController::class)->group(function () {
         Route::get('get', 'GetProducts');
+        Route::get('autocomplete', 'AutocompleteProducts');
         Route::get('{id}/get-materials', 'GetProductMaterials');
         Route::post('add', 'AddProduct');
         Route::put('edit', 'EditProduct');
