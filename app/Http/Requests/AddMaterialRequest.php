@@ -25,7 +25,7 @@ class AddMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique('materials')->where(fn ($query) => $query->where('user_id', Auth::id()))],
+            'name' => ['required', 'string', 'max:150', Rule::unique('materials')->where(fn ($query) => $query->where('user_id', Auth::id()))],
             'price_per_uom' => ['required', 'numeric', 'min:0', 'max:100000'],
             'uom' => ['required', 'in:kg,l'],
             'category_id' => ['required', Rule::exists('categories', 'id')->where(fn ($query) => $query->where('type', 2))]

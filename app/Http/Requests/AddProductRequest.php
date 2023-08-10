@@ -25,7 +25,7 @@ class AddProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique('products')->where(fn ($query) => $query->where('user_id', Auth::id()))],
+            'name' => ['required', 'string', 'max:150', Rule::unique('products')->where(fn ($query) => $query->where('user_id', Auth::id()))],
             'price_sell' => ['required', 'numeric', 'min:0', 'max:1000000'],
             'category_id' => ['required', Rule::exists('categories', 'id')->where(fn ($query) => $query->where('type', 1))],
             'materials' => ['required', 'array', 'min:1', 'max:100'],
