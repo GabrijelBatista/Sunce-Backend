@@ -31,21 +31,4 @@ class Category extends Model
     {
         return $this->hasMany(Material::class, 'category_id');
     }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::deleting(function($category) {
-            $relationships = ['products'];
-
-            foreach ($relationships as $relationship) {
-                if ($category->$relationship()->count() > 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        });
-    }
 }

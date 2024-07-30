@@ -55,7 +55,7 @@ class MaterialController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        return response()->json(['material' => $material, 'message' =>'Material added successfully']);
+        return response()->json(['material' => $material, 'message' =>'Sastojak uspješno dodan.']);
     }
 
     public function EditMaterial(EditMaterialRequest $request): JsonResponse
@@ -68,18 +68,18 @@ class MaterialController extends Controller
         }
         $material->fill($request->all())->save();
 
-        return response()->json(['material' => $material, 'message' =>'Material edited successfully']);
+        return response()->json(['material' => $material, 'message' => 'Sastojak uspješno uređen.']);
     }
 
     public function DeleteMaterial($id): JsonResponse
     {
         $material = Material::find($id);
-        $material->products()->update(['price_cost' => DB::raw("price_cost - (material_quantity * " . $material->price_per_uom . ")"), 'price_diff' => DB::raw("price_sell - (price_cost - (material_quantity * " . $material->price_per_uom . "))")]);
-        $response = Material::destroy($id);
-
-        if ($response) {
-            return response()->json(['message' =>'Material deleted successfully']);
+        if(!$material){
+             return response()->json(['message' =>'Traženi sastojak ne postoji.'], 404);
         }
-        return response()->json(['message' =>'Material does not exist'], 404);
+        $material->products()->update(['price_cost' => DB::raw("price_cost - (material_quantity * " . $material->price_per_uom . ")"), 'price_diff' => DB::raw("price_sell - (price_cost - (material_quantity * " . $material->price_per_uom . "))")]);
+        $material->delete();
+
+        return response()->json(['message' =>'Sastojak uspješno obrisan.']);
     }
 }

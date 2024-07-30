@@ -69,7 +69,7 @@ class ProductController extends Controller
         ]);
         $product->materials()->sync($materials_to_array);
 
-        return response()->json(['product' => $product->load(['materials', 'category']), 'message' =>'Product added successfully']);
+        return response()->json(['product' => $product->load(['materials', 'category']), 'message' =>'Proizvod uspješno dodan.']);
     }
 
     public function EditProduct(EditProductRequest $request): JsonResponse
@@ -102,7 +102,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return response()->json(['product' => $product->load(['category']), 'message' =>'Product edited successfully']);
+        return response()->json(['product' => $product->load(['category']), 'message' => 'Proizvod uspješno uređen.']);
     }
 
     public function DeleteProduct($id): JsonResponse
@@ -110,8 +110,8 @@ class ProductController extends Controller
         $response = Product::destroy($id);
 
         if ($response) {
-            return response()->json(['message' =>'Product deleted successfully']);
+            return response()->json(['message' =>'Proizvod uspješno obrisan.']);
         }
-        return response()->json(['message' =>'Product does not exist'], 404);
+        return response()->json(['message' =>'Traženi proizvod ne postoji.'], 404);
     }
 }

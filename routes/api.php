@@ -23,6 +23,8 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::post('login', 'Login');
     Route::post('register', 'Register');
     Route::post('refresh', 'Refresh');
+    Route::put('send-verification-code', 'SendVerificationCode');
+    Route::put('reset-password', 'ResetPassword');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -32,13 +34,13 @@ Route::middleware('auth:api')->group(function () {
 
     Route::prefix('user')->controller(UserController::class)->group(function () {
         Route::put('change-password', 'ChangePassword');
+        Route::put('verify-email', 'VerifyEmail');
+        Route::delete('delete-account', 'DeleteAccount');
     });
 
     Route::prefix('category')->controller(CategoryController::class)->group(function () {
         Route::get('get-product-categories', 'GetProductCategories');
         Route::get('get-material-categories', 'GetMaterialCategories');
-        Route::get('{id}/get-category-products', 'GetCategoryProducts');
-        Route::get('{id}/get-category-materials', 'GetCategoryMaterials');
         Route::get('autocomplete', 'AutocompleteCategories');
         Route::post('add', 'AddCategory');
         Route::put('edit', 'EditCategory');

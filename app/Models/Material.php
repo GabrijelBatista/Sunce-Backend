@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\DB;
 
 class Material extends Model
 {
@@ -32,7 +31,7 @@ class Material extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_materials')->withPivot(["material_quantity"]);
+        return $this->belongsToMany(Product::class, 'product_materials')->withPivot(["material_quantity"])->withTimestamps();
     }
 
     protected static function boot(): void

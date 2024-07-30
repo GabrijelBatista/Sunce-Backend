@@ -4,10 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
-class AddCategoryRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +23,9 @@ class AddCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50'],
-            'type' => ['required', 'in:1,2']
+            'email' => ['required', 'email', 'exists:users', 'max:50'],
+            'password' => ['required', 'confirmed', 'min:6', 'max:30', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9]).*$/'],
+            'code' => ['required', 'string', 'min:6', 'max:6']
         ];
     }
 }

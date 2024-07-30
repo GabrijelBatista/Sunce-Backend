@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('product_materials', function (Blueprint $table) {
             $table->id();
             $table->double('material_quantity');
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('material_id')->constrained('materials');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('material_id')->constrained('materials')->onDelete('cascade');
             $table->timestamps();
 
             $table->index(['product_id', 'material_id']);

@@ -32,7 +32,7 @@ class Product extends Model
 
     public function materials(): BelongsToMany
     {
-        return $this->belongsToMany(Material::class, 'product_materials')->withPivot(["material_quantity"]);
+        return $this->belongsToMany(Material::class, 'product_materials')->withPivot(["material_quantity"])->withTimestamps();
     }
 
     protected static function boot(): void

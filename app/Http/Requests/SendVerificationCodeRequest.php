@@ -4,10 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
-class AddCategoryRequest extends FormRequest
+class SendVerificationCodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +23,7 @@ class AddCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50'],
-            'type' => ['required', 'in:1,2']
+            'email' => ['email', 'exists:users', 'max:50']
         ];
     }
 }
