@@ -32,36 +32,38 @@ Route::middleware('auth:api')->group(function () {
         Route::post('logout', 'Logout');
     });
 
-    Route::prefix('user')->controller(UserController::class)->group(function () {
-        Route::put('change-password', 'ChangePassword');
-        Route::put('verify-email', 'VerifyEmail');
-        Route::delete('delete-account', 'DeleteAccount');
-    });
+    Route::middleware('verified')->group(function () {
+        Route::prefix('user')->controller(UserController::class)->group(function () {
+            Route::put('change-password', 'ChangePassword');
+            Route::put('verify-email', 'VerifyEmail');
+            Route::delete('delete-account', 'DeleteAccount');
+        });
 
-    Route::prefix('category')->controller(CategoryController::class)->group(function () {
-        Route::get('get-product-categories', 'GetProductCategories');
-        Route::get('get-material-categories', 'GetMaterialCategories');
-        Route::get('autocomplete', 'AutocompleteCategories');
-        Route::post('add', 'AddCategory');
-        Route::put('edit', 'EditCategory');
-        Route::delete('delete/{id}', 'DeleteCategory');
-    });
+        Route::prefix('category')->controller(CategoryController::class)->group(function () {
+            Route::get('get-product-categories', 'GetProductCategories');
+            Route::get('get-material-categories', 'GetMaterialCategories');
+            Route::get('autocomplete', 'AutocompleteCategories');
+            Route::post('add', 'AddCategory');
+            Route::put('edit', 'EditCategory');
+            Route::delete('delete/{id}', 'DeleteCategory');
+        });
 
-    Route::prefix('material')->controller(MaterialController::class)->group(function () {
-        Route::get('get', 'GetMaterials');
-        Route::get('autocomplete', 'AutocompleteMaterials');
-        Route::get('{id}/get-products', 'GetMaterialProducts');
-        Route::post('add', 'AddMaterial');
-        Route::put('edit', 'EditMaterial');
-        Route::delete('delete/{id}', 'DeleteMaterial');
-    });
+        Route::prefix('material')->controller(MaterialController::class)->group(function () {
+            Route::get('get', 'GetMaterials');
+            Route::get('autocomplete', 'AutocompleteMaterials');
+            Route::get('{id}/get-products', 'GetMaterialProducts');
+            Route::post('add', 'AddMaterial');
+            Route::put('edit', 'EditMaterial');
+            Route::delete('delete/{id}', 'DeleteMaterial');
+        });
 
-    Route::prefix('product')->controller(ProductController::class)->group(function () {
-        Route::get('get', 'GetProducts');
-        Route::get('autocomplete', 'AutocompleteProducts');
-        Route::get('{id}/get-materials', 'GetProductMaterials');
-        Route::post('add', 'AddProduct');
-        Route::put('edit', 'EditProduct');
-        Route::delete('delete/{id}', 'DeleteProduct');
+        Route::prefix('product')->controller(ProductController::class)->group(function () {
+            Route::get('get', 'GetProducts');
+            Route::get('autocomplete', 'AutocompleteProducts');
+            Route::get('{id}/get-materials', 'GetProductMaterials');
+            Route::post('add', 'AddProduct');
+            Route::put('edit', 'EditProduct');
+            Route::delete('delete/{id}', 'DeleteProduct');
+        });
     });
 });
