@@ -42,7 +42,7 @@ class UserController extends Controller
         $user->email_verified_at = now();
         $user->save();
 
-        return response()->json(['message' => 'Email adresa uspješno verifikovana.']);
+        return response()->json(['message' => 'Email adresa uspješno verificirana.']);
     }
 
     protected function DeleteAccount(): JsonResponse
