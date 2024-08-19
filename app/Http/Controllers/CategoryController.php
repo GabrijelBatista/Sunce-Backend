@@ -25,7 +25,7 @@ class CategoryController extends Controller
                     }
             })->paginate(10);
         } else {
-            $categories = Category::where([['user_id', Auth::id()], ['type', 1]])->with('products')->paginate(10);
+            $categories = Category::where([['user_id', Auth::id()], ['type', 1]])->with('products')->orderBy('created_at', 'desc')->paginate(10);
         }
 
 
@@ -46,7 +46,7 @@ class CategoryController extends Controller
                     }
                 })->paginate(10);
         } else {
-            $categories = Category::where([['user_id', Auth::id()], ['type', 2]])->with('materials')->paginate(10);
+            $categories = Category::where([['user_id', Auth::id()], ['type', 2]])->orderBy('created_at', 'desc')->with('materials')->paginate(10);
         }
         return response()->json($categories);
     }
